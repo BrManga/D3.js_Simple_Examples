@@ -19,7 +19,7 @@ function Circles() {
 
   return (
     <React.Fragment>
-      <svg ref={svgRef}></svg>
+      <svg className="svgCircle" ref={svgRef}></svg><br/><br/>
       <button onClick={() => setData(data.map(value => value + 5))}>
         Update
       </button>

@@ -8,7 +8,8 @@ function Lines() {
     const svg = select(svgRef.current);
     const myLine = line()
       .x((value, index) => index * 50)
-      .y(value => 150 - value).curve(curveCardinal);
+      .y(value => 150 - value)
+      .curve(curveCardinal);
     svg
       .selectAll("path")
       .data([data])
@@ -21,7 +22,7 @@ function Lines() {
 
   return (
     <React.Fragment>
-      <svg ref={svgRef}></svg>
+      <svg ref={svgRef}></svg><br/><br/>
       <button onClick={() => setData(data.map(value => value + 5))}>
         Update
       </button>

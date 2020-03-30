@@ -9,7 +9,7 @@ function AddingInteractivity() {
     const xScale = scaleBand()
       .domain([0, 1, 2, 3, 4, 5, 6])
       .range([0, 300]) //Range is here like svg width to fit in it
-      .padding(0.2);
+      .padding(0.5);
     const yScale = scaleLinear()
       .domain([0, 150])
       .range([150, 0]); //to make upside down
@@ -35,11 +35,24 @@ function AddingInteractivity() {
       .attr("x", (value, index) => xScale(index))
       .attr("y", -150)
       .attr("width", xScale.bandwidth())
+      .on("mouseenter", (value, index) => {
+        svg
+          .selectAll(".tooltip")
+          .data([value])
+          .join("text")
+          .attr("class", "tooltip")
+          .text(value)
+          .attr("x", xScale(index)+xScale.bandwidth()/2)
+          .transition()
+          .attr("y", yScale(value + 8)).attr("text-anchor", "middle")
+          .attr("opacity", 1)
+      })
+      .on("mouseleave", ()=>svg.selectAll(".tooltip").remove())
       .transition()
       .attr("fill", colorScale)
-      .attr("height", value => 150 - yScale(value));
+      .attr("height", value => 150 - yScale(value))
+      
   }, [data]);
-  console.log("data", data);
 
   return (
     <React.Fragment>
